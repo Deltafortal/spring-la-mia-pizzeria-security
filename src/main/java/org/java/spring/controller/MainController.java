@@ -10,6 +10,7 @@ import org.java.spring.serv.IngredientService;
 import org.java.spring.serv.PizzaService;
 import org.java.spring.serv.SpecialSaleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,7 +38,7 @@ public class MainController {
 	
 	//********** Routes
 	@GetMapping
-	public String getPizzas(Model model, @RequestParam(required = false) String q) {
+	public String getPizzas(Model model, @RequestParam(required = false) String q, Authentication auth) {
 		
 		
 		List<Pizza> pizzas = q == null ? pizzaService.findAll() : pizzaService.findByName(q);
