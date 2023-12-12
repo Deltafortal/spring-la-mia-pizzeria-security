@@ -38,7 +38,7 @@ public class MainController {
 	
 	//********** Routes
 	@GetMapping
-	public String getPizzas(Model model, @RequestParam(required = false) String q, Authentication auth) {
+	public String getPizzas(Model model, @RequestParam(required = false) String q) {
 		
 		
 		List<Pizza> pizzas = q == null ? pizzaService.findAll() : pizzaService.findByName(q);

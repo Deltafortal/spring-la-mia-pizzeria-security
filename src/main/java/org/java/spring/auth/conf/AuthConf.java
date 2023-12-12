@@ -18,14 +18,16 @@ public class AuthConf {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http)throws Exception {
 		
-		http.authorizeHttpRequests()
-        .requestMatchers("/books/create/**").hasAnyAuthority("ADMIN")
-        .requestMatchers("/**").permitAll()
-        .and().formLogin()
-        .and().logout()
-    ;
+		http
+			.csrf().disable()
+			.authorizeHttpRequests()
+	        .requestMatchers("/pizza/create/**").hasAnyAuthority("ADMIN")
+	        .requestMatchers("/**").permitAll()
+	        .and().formLogin()
+	        .and().logout()
+	        ;
 	
-	return http.build();
+		return http.build();
 	}
 	
 	
