@@ -2,6 +2,11 @@ package org.java.spring;
 
 import java.util.List;
 
+import org.java.spring.auth.conf.AuthConf;
+import org.java.spring.auth.pojo.Role;
+import org.java.spring.auth.pojo.User;
+import org.java.spring.auth.serv.RoleService;
+import org.java.spring.auth.serv.UserService;
 import org.java.spring.pojo.Ingredient;
 import org.java.spring.pojo.Pizza;
 import org.java.spring.pojo.SpecialSale;
@@ -26,6 +31,15 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 	
 	@Autowired
 	private IngredientService ingredientService;
+	
+	
+	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
+	private UserService userService;
+	
+	
 	
 	//Main function
 	public static void main(String[] args) {
@@ -61,6 +75,22 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 		specialSaleService.save(new SpecialSale("Margherita Day", "07/12/2023", "08/12/2023", pizzas.get(0)));
 		specialSaleService.save(new SpecialSale("Ricottone", "09/12/2023", "13/12/2023", pizzas.get(1)));
 		
+		
+		
+		
+		Role roleUser = new Role("USER");
+		Role roleAdmin = new Role("ADMIN");
+		
+		roleService.save(roleUser);
+		roleService.save(roleAdmin);
+		
+		String password = AuthConf.passwordEncoder().encode("pass");
+		
+		User User = new User("User", password, roleUser);
+		User Admin = new User("Admin", password, roleAdmin);
+		
+		userService.save(User);
+		userService.save(Admin);
 	}
 
 }
