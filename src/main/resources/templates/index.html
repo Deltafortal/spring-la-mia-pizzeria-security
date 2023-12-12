@@ -24,7 +24,9 @@
 				<div class="col-8">
 					<h1>Le pizze:</h1>					
 				</div>
-				<div class="col-2">
+				
+				
+				<div class="col-2" sec:authorize="hasAuthority('ADMIN')">
 					<a class="btn btn-success" href="/pizza/create">Nuova pizza</a>
 				</div>
 				<div class="col-2">
@@ -61,8 +63,9 @@
 			      <td scope="row" th:text="${pizza.price} + €"></td>
 			      <td scope="row" class="d-flex align-items-center">
 					  <a th:href="@{/pizza/{id}(id=${pizza.id})}" class="btn btn-primary me-3">Dettagli</a>
-					  <a th:href="@{/pizza/edit/{id} (id=${pizza.id})}" class="btn btn-success me-3">Modifica</a>
-					  <form th:action="@{/pizza/delete/{id} (id=${pizza.id})}" method="POST">
+					  <a th:href="@{/pizza/edit/{id} (id=${pizza.id})}" class="btn btn-success me-3" sec:authorize="hasAuthority('ADMIN')">
+						  Modifica</a>
+					  <form th:action="@{/pizza/delete/{id} (id=${pizza.id})}" method="POST" sec:authorize="hasAuthority('ADMIN')">
 					  	<input type="submit" value="Cancella" class="btn btn-danger"></input>					  
 					  </form>
 				  </td>
